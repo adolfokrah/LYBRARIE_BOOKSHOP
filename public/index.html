@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <title>LYBRARIE BOOKSHOP</title>
+</head>
+<body>
+    <div class="container" style="max-width: 900px; margin-top:80px">
+        <h3 style="text-align: center;">WELCOME TO LYBRARIE BOOKSHOP</h3><br/>
+        <div id="app">
+                <div class="row">
+                    <div class="col-12">
+                      <input v-model="searchedBook" type="text" class="form-control" placeholder="Search book by title or ISB">
+                    </div>
+                </div><br/>
+                <div class="row">
+                    <div class="col col-sm-12 col-md-3">
+                      <select v-model="searchedAuthor" class="form-control">
+                          <option value="">--Filter by author----</option>
+                          <option v-for="author in authors" :value="author.id">{{author.name}}</option>
+                      </select>
+                    </div>
+                    <div class="col col-sm-12 col-md-3">
+                        <select v-model="searchedGenre" class="form-control">
+                            <option value="">--Filter by genre----</option>
+                            <option v-for="genre in genres" :value="genre">{{genre}}</option>
+                        </select>
+                      </div>
+                      <div class="col col-sm-12 col-md-3">
+                        <select v-model="searchedYear" class="form-control">
+                            <option value="">--Filter by year----</option>
+                            <option v-for="year in years" :value="year">{{year}}</option>
+                        </select>
+                      </div>
+                      <div class="col col-sm-12 col-md-3">
+                         <button v-on:click="searchBook()" class="btn btn-success" style="width: 100%;">
+                         <span v-if="loading">Please wait...</span>
+                         <span v-else>Search</span>
+                        </button>
+                      </div>
+                  </div>
+                  <br/>
+                    <div  v-if="numberOfBooksFound > 0 && loading == false">
+                        <em v-if="numberOfBooksFound == 1">{{numberOfBooksFound}} Book found</em>
+                        <em v-else>{{numberOfBooksFound}} Books found</em>
+                    </div>
+                  <br/>
+                  <div class="row">
+                      <div class="col col-sm-6 col-md-3" v-for="book in books" style="margin-top: 20px;">
+                          <div>
+                            <img v-bind:src="book.image" style="width:100%"/><br/>
+                            <spanp><b>{{book.title}}</b></span><br/>
+                            <span>by: {{book.author}}</span><br/>
+                            <span>{{book.year}}</span><br/>
+                            <span>ISBN : {{book.ISBN}}</span><br/>
+                            <em>{{book.genre}}</em><br/>
+                          </div>
+                      </div>
+                  </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script src="https://npmcdn.com/parse@3.3.0/dist/parse.min.js"></script>
+<script src="/public/assets/js/main.js"></script>
+</html>
